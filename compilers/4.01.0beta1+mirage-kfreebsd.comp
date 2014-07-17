@@ -1,0 +1,34 @@
+opam-version: "1"
+version: "4.01.0beta1"
+src: "https://github.com/ocaml/ocaml/archive/4.01.tar.gz"
+patches: [
+  "https://github.com/pgj/ocaml/commit/2e155b0c4e551f3cfb31aedbe44b4304ad2e4ccf.patch"
+  "https://github.com/pgj/ocaml/commit/e63fdcbad6b403a52a7458e849136b08f97bb3d3.patch"
+  "https://github.com/pgj/ocaml/commit/26196344b32a1bb243b0e8986e5c0c82b05cc262.patch"
+  "https://github.com/pgj/ocaml/commit/acb827c29187de3fafd17561e6e53606de33a94a.patch"
+  "https://gist.github.com/andrewray/b9091d1d36d2b9546549/raw"
+]
+build: [
+  ["./configure" "-prefix" "%{prefix}%" "-no-tk"]
+  ["%{make}%" "world"]
+  ["%{make}%" "world.opt"]
+  ["%{make}%" "install"]
+  ["./configure" "-prefix" "%{prefix}%" "-no-shared-libs" "-no-tk"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% clean"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% all"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% allopt"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% install"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% installopt"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries-clean"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibrariesopt"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries-install"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries-installopt"]
+  ["sh" "-c" "rm %{lib}%/ocaml/dynlink.cmx*"]
+]
+env: [
+  [MIRAGE_OS = "kfreebsd"]
+  [MIRAGE_NET = "direct"]
+  [OCAMLPARAM = "nodynlink=1,nopic=1,fixedpt=16,_"]
+  [NO_EXECUTABLES = "YES"]
+]

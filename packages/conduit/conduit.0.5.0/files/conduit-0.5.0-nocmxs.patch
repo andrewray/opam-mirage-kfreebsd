@@ -1,0 +1,12 @@
+diff -rupN ocaml-conduit-0.5.0/build.sh ocaml-conduit-0.5.0-fix/build.sh
+--- ocaml-conduit-0.5.0/build.sh	2014-04-13 20:43:48.000000000 +0100
++++ ocaml-conduit-0.5.0-fix/build.sh	2014-07-16 18:27:51.000000000 +0100
+@@ -29,7 +29,7 @@ HAVE_LWT=`ocamlfind query lwt 2>/dev/nul
+ HAVE_LWT_SSL=`ocamlfind query lwt.ssl 2>/dev/null || true`
+ 
+ add_target () {
+-  TARGETS="$TARGETS lib/$1.cmxs lib/$1.cma lib/$1.cmxa"
++  TARGETS="$TARGETS lib/$1.cma lib/$1.cmxa"
+ }
+ 
+ add_pkg () {

@@ -1,0 +1,26 @@
+diff -rupN findlib-1.5.1/src/bytes/Makefile findlib-1.5.1-new/src/bytes/Makefile
+--- findlib-1.5.1/src/bytes/Makefile	2014-06-25 11:23:06.000000000 +0100
++++ findlib-1.5.1-new/src/bytes/Makefile	2014-07-16 13:47:33.000000000 +0100
+@@ -1,13 +1,21 @@
++TOP=../..
++include $(TOP)/Makefile.config
++
+ BYTE_FILES=bytes.cmi bytes.cma
+-NATIVE_FILES=bytes.cmx bytes.cmxa bytes.a bytes.cmxs
++NATIVE_FILES=bytes.cmx bytes.cmxa bytes.a 
+ OCAMLBUILD=ocamlbuild -classic-display -no-links
+ 
++ifneq ($(HAVE_NATDYNLINK),0)
++NATIVE_FILES += bytes.cmxs
++endif
++
+ build: all opt
+ 
+ all:
+ 	$(OCAMLBUILD) $(BYTE_FILES)
+ 
+ opt:
++	echo $(HAVE_NATDYNLINK)
+ 	$(OCAMLBUILD) $(NATIVE_FILES)
+ 
+ install: all

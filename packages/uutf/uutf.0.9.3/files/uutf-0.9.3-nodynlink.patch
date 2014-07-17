@@ -1,0 +1,30 @@
+diff -rupN uutf-0.9.3/pkg/build uutf-0.9.3-fix/pkg/build
+--- uutf-0.9.3/pkg/build	2013-08-10 19:12:50.000000000 +0100
++++ uutf-0.9.3-fix/pkg/build	2014-07-16 18:07:13.000000000 +0100
+@@ -8,6 +8,7 @@ LOC=`dirname $0`
+ . $LOC/pkg-builder
+ 
+ NATIVE=$1
++DYNLINK=$2
+ 
+ add lib pkg/META                
+ add lib src/uutf.mli      
+diff -rupN uutf-0.9.3/pkg/pkg-builder uutf-0.9.3-fix/pkg/pkg-builder
+--- uutf-0.9.3/pkg/pkg-builder	2013-08-10 19:12:50.000000000 +0100
++++ uutf-0.9.3-fix/pkg/pkg-builder	2014-07-16 18:07:42.000000000 +0100
+@@ -35,7 +35,14 @@ add ()
+     case $1 in
+         lib)
+             if [ "$NATIVE" = "true" ]; then 
+-                add_lib $SRC $DST
++                if [ "$DYNLINK" = "true" ]; then
++                    add_lib $SRC $DST
++                else
++                    case $2 in
++                        *.cmxs) ;;
++                        *) add_lib $SRC $DST ;;
++                    esac
++                fi
+             else
+                 case $2 in
+                     *.a | *.cmx | *.cmxa | *.cmxs) ;;

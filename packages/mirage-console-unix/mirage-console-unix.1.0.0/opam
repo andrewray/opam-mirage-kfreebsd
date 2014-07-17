@@ -1,0 +1,18 @@
+opam-version: "1"
+maintainer: "anil@recoil.org"
+tags: [
+  "org:mirage"
+  "org:xapi-project"
+]
+build: [
+  [make "unix-build"]
+  [make "unix-install"]
+]
+depends: [
+  "ocamlfind"
+  "mirage-types" {>="0.4.0"}
+  "mirage-unix" {>="0.9.9"}
+]
+patches: [
+  "mirage-console-1.0.0-nocmxs.patch"
+]

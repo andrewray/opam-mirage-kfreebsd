@@ -1,0 +1,20 @@
+diff -rupN mirage-console-1.0.0/build mirage-console-1.0.0-fix/build
+--- mirage-console-1.0.0/build	2013-12-08 18:16:13.000000000 +0000
++++ mirage-console-1.0.0-fix/build	2014-07-16 22:19:55.000000000 +0100
+@@ -9,14 +9,14 @@ xen) DEPS="mirage-types,mirage-xen,io-pa
+ *) echo Unknown OS $OS; exit 1 ;;
+ esac
+ 
+-ocamlbuild -use-ocamlfind -pkgs $DEPS ${OS}/mirage-console.cma ${OS}/mirage-console.cmxa ${OS}/mirage-console.cmxs
++ocamlbuild -use-ocamlfind -pkgs $DEPS ${OS}/mirage-console.cma ${OS}/mirage-console.cmxa 
+ 
+ B=_build/${OS}
+ if [ "$1" = "true" ]; then
+   ocamlfind remove mirage-console-${OS} || true
+   ocamlfind install mirage-console-${OS} ${OS}/META \
+     $B/console.cmo $B/console.cmi $B/mirage-console.cma \
+-    $B/mirage-console.a $B/console.cmx $B/mirage-console.cmxa $B/mirage-console.cmxs
++    $B/mirage-console.a $B/console.cmx $B/mirage-console.cmxa 
+ elif [ "$1" = "test" ]; then
+   ocamlbuild -use-ocamlfind -pkgs mirage-types,$DEPS -I ${OS} lib_test/portable.cmo
+ fi
