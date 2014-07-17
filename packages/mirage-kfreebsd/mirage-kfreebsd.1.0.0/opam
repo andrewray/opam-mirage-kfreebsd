@@ -1,0 +1,15 @@
+opam-version: "1"
+maintainer: "pali.gabor@gmail.com"
+build: [
+  [make "kfreebsd-build"]
+  [make "kfreebsd-install" "PREFIX=%{prefix}%"]
+]
+remove: [
+  [make "kfreebsd-uninstall" "PREFIX=%{prefix}%"]
+]
+depends: ["cstruct" {>="0.7.1"}
+          "ocamlfind"
+          "lwt" {>="2.4.0"}
+          "ipaddr" {>="0.2"}
+]
+conflicts: ["mirage-unix" "mirage-xen"]
