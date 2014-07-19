@@ -17,6 +17,10 @@ so the projects have been forked and we're working off a kfreebsd branch.
 * mirage-platform - add kfreebsd backend
 * mirage - got compiling (use byte code), need to add kfreebsd build stuff
 
+We will additionally need some new packages related to kfreebsd
+
+* mirage-console-kfreebsd - port of unix code
+
 For testing/porting I am trying to get the older mirari package to build.
 This is so I can see what needs to be done to port it to mirage proper.
 The following have also been patched, therefore, even though they are
