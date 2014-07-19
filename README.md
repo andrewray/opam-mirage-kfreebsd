@@ -17,3 +17,10 @@ so the projects have been forked and we're working off a kfreebsd branch.
 * mirage-platform - add kfreebsd backend
 * mirage - got compiling (use byte code), need to add kfreebsd build stuff
 
+For testing/porting I am trying to get the older mirari package to build.
+This is so I can see what needs to be done to port it to mirage proper.
+The following have also been patched, therefore, even though they are
+out of date.
+
+* mirage-net-direct - various build fixes and disable .cmxs
+* mirari - build against latest world, bytecode only, uses pgj fork

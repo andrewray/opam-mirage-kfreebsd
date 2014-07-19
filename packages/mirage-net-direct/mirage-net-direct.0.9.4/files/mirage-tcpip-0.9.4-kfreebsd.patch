@@ -1,0 +1,36 @@
+diff -rupN mirage-tcpip-0.9.4/cmd mirage-tcpip-0.9.4-fix/cmd
+--- mirage-tcpip-0.9.4/cmd	2013-08-09 15:26:33.000000000 +0100
++++ mirage-tcpip-0.9.4-fix/cmd	2014-07-18 12:26:27.000000000 +0100
+@@ -48,7 +48,7 @@ configure() {
+   # TODO check ocamlopt is installed
+   touch _config/flag.opt
+   # TODO getopt parsing for this and implement various options
+-  touch _config/flag.natdynlink
++  #touch _config/flag.natdynlink
+ }
+ 
+ # invoke native code and byte code compiler targets
+diff -rupN mirage-tcpip-0.9.4/direct/_vars mirage-tcpip-0.9.4-fix/direct/_vars
+--- mirage-tcpip-0.9.4/direct/_vars	2013-08-09 15:26:33.000000000 +0100
++++ mirage-tcpip-0.9.4-fix/direct/_vars	2014-07-18 12:02:24.000000000 +0100
+@@ -1,4 +1,5 @@
+ NAME=mirage-net
+ VERSION=0.9.4
+-DEPS="mirage ipaddr"
++DEPS="mirage mirage-kfreebsd ipaddr"
++SYNTAX_DEPS="lwt.syntax cstruct.syntax"
+ LIB="net"
+diff -rupN mirage-tcpip-0.9.4/direct/lib/config.ml mirage-tcpip-0.9.4-fix/direct/lib/config.ml
+--- mirage-tcpip-0.9.4/direct/lib/config.ml	2013-08-09 15:26:33.000000000 +0100
++++ mirage-tcpip-0.9.4-fix/direct/lib/config.ml	2014-07-18 12:03:10.000000000 +0100
+@@ -28,7 +28,7 @@ let t id =
+ let t id =
+   let open Nettypes in
+   `IPv4 (
+-    Ipaddr.V4.make 10l 0l 0l 2l,
+-    Ipaddr.V4.make 255l 255l 255l 0l,
+-    [ Ipaddr.V4.make 10l 0l 0l 1l ]
++    Ipaddr.V4.make 10 0 0 2,
++    Ipaddr.V4.make 255 255 255 0,
++    [ Ipaddr.V4.make 10 0 0 1 ]
+   )
