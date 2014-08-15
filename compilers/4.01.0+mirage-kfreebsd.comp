@@ -1,0 +1,32 @@
+opam-version: "1"
+version: "4.01.0+mirage-kfreebsd"
+src: "https://github.com/andrewray/ocaml-4.01.0-mirage-kfreebsd/archive/master.tar.gz"
+build: [
+  ["./configure" "-prefix" "%{prefix}%" "-no-tk"]
+  ["%{make}%" "world"]
+  ["%{make}%" "world.opt"]
+  ["%{make}%" "install"]
+  ["./configure" "-prefix" "%{prefix}%" "-no-shared-libs" "-no-tk"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% clean"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% all"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% allopt"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% install"]
+  ["sh" "-c" "cd stdlib && env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% installopt"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries-clean"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibrariesopt"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries-install"]
+  ["sh" "-c" "env OCAMLPARAM='nodynlink=1,nopic=1,_' %{make}% otherlibraries-installopt"]
+  ["sh" "-c" "rm %{lib}%/ocaml/dynlink.cmx*"]
+]
+packages: [
+  "base-unix"
+  "base-bigarray"
+  "base-threads"
+]
+env: [
+  [MIRAGE_OS = "kfreebsd"]
+  [MIRAGE_NET = "direct"]
+  [OCAMLPARAM = "nodynlink=1,nopic=1,fixedpt=16,_"]
+  [NO_EXECUTABLES = "YES"]
+]
